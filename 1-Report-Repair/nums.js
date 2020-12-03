@@ -197,6 +197,5 @@ const nums = `1883
 1119
 1193
 1223
-1291
-`
+1291`
 module.exports = nums;
