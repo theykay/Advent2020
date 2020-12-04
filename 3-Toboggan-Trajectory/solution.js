@@ -36,7 +36,7 @@ function collider(over, down) {
     }
     position = (position + over) % 31;
   }
-  console.log(collisions);
+  // console.log(collisions);
   return collisions;
 }
 const path1 = collider(1,1);
