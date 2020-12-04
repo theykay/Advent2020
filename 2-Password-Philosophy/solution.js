@@ -33,3 +33,23 @@ data.forEach(item => {
   }
 })
 console.log(passedWords);
+
+// part 2
+const checkAgain = (obj) => {
+  const arr = obj.string.split('');
+  obj.min--;
+  obj.max--;
+  if ((arr[obj.min] === obj.char && arr[obj.max] !== obj.char) ||
+  (arr[obj.max] === obj.char && arr[obj.min] !== obj.char)) {
+    return true;
+  } 
+  return false;
+}
+
+let newPassed = 0;
+data.forEach(item => {
+  if (checkAgain(item)) {
+    newPassed++;
+  }
+})
+console.log(newPassed);
