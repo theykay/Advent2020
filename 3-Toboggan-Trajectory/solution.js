@@ -1,31 +1,9 @@
-const { codePointAt } = require("../2-Password-Philosophy/input");
 const input = require("./input");
 let forest = input.split(/\n/);
 
 for (let i = 0; i < forest.length; i++) {
   forest[i] = forest[i].split("");
 }
-
-// function path2() {
-//   let collisions = 0;
-//   let position = 0;
-//   for (let branch = 0; branch < forest.length; branch++) {
-//     if (forest[branch][position] === "#") {
-//       collisions++;
-//     }
-
-//     if (position === 30) {
-//       position = 2
-//     } else if (position === 29) {
-//       position = 1
-//     } else if (position === 28) {
-//       position = 0
-//     } else {
-//       position = position + 3;
-//     }
-//   }
-//   console.log("path 2: ", collisions);
-// }
 
 function collider(over, down) {
   let collisions = 0;
@@ -34,7 +12,7 @@ function collider(over, down) {
     if (forest[branch][position] === "#") {
       collisions++;
     }
-    position = (position + over) % 31;
+    position = (position + over) % branch.length;
   }
   // console.log(collisions);
   return collisions;
