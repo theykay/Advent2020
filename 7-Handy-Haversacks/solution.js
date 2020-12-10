@@ -15,13 +15,6 @@ input2.forEach(rule => {
   // make the color descriptor(s) into one word
   newRule[0] = newRule[0].replace(" ", "");
 
-  // let obj = {
-  //   holder: "",
-  //   contents: {}
-  // };
-
-  // set the container bag descriptor as value in object with key "holder"
-  // obj.holder = newRule[0].trim();
   let name = newRule[0].trim();
 
   // remove word contain
@@ -47,22 +40,23 @@ input2.forEach(rule => {
     input3[name] = {};
   }
 });
-console.log(input3["plaidtan"]);
+// console.log(input3["shinygold"]);
 
 // part2 solution
-let total = 0;
+let bags = [];
 
 const thisWillDestroyMe = (color) => {
-  if (Object.keys(input3[color]).length > 0) {
-    for (const key in input3[color]) {
-      total += input3[color][key] * thisWillDestroyMe(key);
+  for (const key in input3[color]) {
+    for( let p = 0; p < input3[color][key]; p++) {
+      bags.push(key);
+      thisWillDestroyMe(key);
     }
   }
-  return total;
 }
+thisWillDestroyMe("shinygold");
+console.log(bags.length);
 
-const goldy = thisWillDestroyMe("shinygold");
-console.log(goldy);
+
 
 // input4 is formatted as an object with
 // key = bag color
