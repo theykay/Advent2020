@@ -37,43 +37,75 @@ const runProgram = () => {
     }
   }
 }
-let score = runProgram();
+// let score = runProgram();
 // console.log(score);
 
-const runProgram2 = () => {
+const checkMe = (array) => {
+  // console.log(array[0]);
   let accumulator = 0;
   let positions = [];
-  for (let i = 0; i < commands.length;) {
-    console.log(i, positions);
+  for (let i = 0; i >= 0;) {
+    // console.log(i, positions);
     if (!positions.includes(i)) {
-      positions.push(i);
-      switch (commands[i].instruction) {
-        case "acc":
-          accumulator += commands[i].number;
-          i++;
-          break;
-        case "jmp":
-          i += commands[i].number;
-          break;
-        case "nop":
-          i++;
-          break;
-        default:
-          break;
+      if (i > array.length - 1) {
+        return {
+          pass: true,
+          accumulator
+        }
+      } else {
+        positions.push(i);
+        switch (array[i].instruction) {
+          case "acc":
+            accumulator += array[i].number;
+            i++;
+            break;
+          case "jmp":
+            i += array[i].number;
+            break;
+          case "nop":
+            i++;
+            break;
+          default:
+            break;
+        }
       }
     } else if (positions.includes(i)) {
-      return accumulator;
+      return {
+        pass: false,
+        accumulator
+      };
     }
   }
-  return accumulator;
 }
 
 const part2 = () => {
-  let accumulator = 0;
-  let rules = [];
-  for (let i = 0; i < commands.length;) {
-    i
+  let toChange = [];
+  for (let i = 0; i < commands.length; i++) {
+    if (commands[i].instruction === "jmp") {
+      toChange.push({
+        instruction: "nop",
+        index: i
+      })
+    } else if (commands[i].instruction === "nop") {
+      toChange.push({
+        instruction: "jmp",
+        index: i
+      })
+    }
   }
+  for (let j = 0; j < toChange.length; j++) {
+    let temp = commands;
+    // console.log(temp)
+    // replace one instruction
+    temp[toChange[j].index].instruction = toChange[j].instruction;
+    // check if that was a success
+    let result = checkMe(temp);
+    if (result.pass === true) {
+      console.log(result.accumulator)
+      // return result.accumulator;
+    }
+  }
+  // console.log(toChange);
 }
-
-console.log(runProgram2());
+part2();
+// console.log(runProgram2());
