@@ -94,7 +94,7 @@ const part2 = () => {
     }
   }
   for (let j = 0; j < toChange.length; j++) {
-    let temp = commands;
+    let temp = commands.map(command => ({...command}));
     // console.log(temp)
     // replace one instruction
     temp[toChange[j].index].instruction = toChange[j].instruction;
